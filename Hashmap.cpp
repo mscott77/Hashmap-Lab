@@ -133,6 +133,7 @@ void Hashmap :: clear()
             // reassign current to be the next node that you saved earlier,
             current = next2Del;
         }
+        buckets[i] = NULL;
     }
     mapSize = 0;
 }
