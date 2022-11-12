@@ -2,6 +2,8 @@
     "files.associations": {
         "*.tcc": "cpp",
         "memory_resource": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }
