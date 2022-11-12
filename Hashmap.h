@@ -25,6 +25,16 @@ private:
 		string key;
 		int value;
 		Node* next;
+		Node* prev;
+
+		// make a constructor so it's easier to assign new values upon creation
+		Node(const string& user_key, const int& user_value, Node* user_next_val = NULL, Node* user_prev_val = NULL){
+			key = user_key;
+			value = user_value;
+			next = user_next_val;
+			prev = user_prev_val;
+		}
+
 	};
 
 	/*
@@ -34,7 +44,7 @@ private:
 	 */
 	struct NodeCompare
 	{
-		bool operator()(Node* a, Node* b)
+		bool operator ()(Node* a, Node* b)
 		{
 			if(a->value != b->value)
 				return a->value < b->value;
