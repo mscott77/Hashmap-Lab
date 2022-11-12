@@ -7,7 +7,7 @@
 
 using namespace std;
 
-//-----------------------------------------------------------CONSTRUCTOR-------------------------------------------------------------
+//-----------------------------------------------------------CONSTRUCTOR--------------------------------------------------------(done)
 Hashmap :: Hashmap()
 {
     //initialize each Node object pointer in the buckets array to be NULL
@@ -18,7 +18,7 @@ Hashmap :: Hashmap()
     }
 
 }
-//-------------------------------------------------------------DESTRUCTOR-----------------------------------------------------------
+//-------------------------------------------------------------DESTRUCTOR------------------------------------------------------(done)
 Hashmap :: ~Hashmap()
 {
     cout << "deleting all elements in the HashMap \n";
@@ -36,7 +36,7 @@ Hashmap :: ~Hashmap()
         }
     }
 }
-//------------------------------------------------------------HASH FUNCTION--------------------------------
+//------------------------------------------------------------HASH FUNCTION--------------------------------(done)
 unsigned int Hashmap :: hash(string key) const
 {
     int count = 0;
@@ -110,7 +110,26 @@ bool Hashmap :: contains(string key) const
 //------------------------------------------------------------------------------------------------------------------------
 int Hashmap :: get(string key) const
 {
-    return 666;
+    int hashIndex = hash(key);
+
+    cout << "In get(), the key you entered is in bucket [" << hashIndex << "] \n searching through the bucket for your item \n";
+
+    Node* current = buckets[hashIndex];
+    while(current != NULL) // loop through all Nodes in the bucket (this will be skipped if the first item is NULL)
+    {
+        // do stuff to the current link 
+        if ((current->key) == key) // if there is an item with matching key, just reassign that keys value to the new value
+        {
+            cout << "your key was found! \n";
+            return current->value;
+        }
+        // then increment the 'counter'
+        current = current->next;
+    }
+
+    cout << "your key was not found :/ \n";
+    throw invalid_argument("key does not yet exist in the HashMap");
+
 }
 //------------------------------------------------------------------------------------------------------------------------
 bool Hashmap :: remove(string key)
@@ -167,7 +186,7 @@ string Hashmap :: toString() const
     
     return ss.str();
 }
-//------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------------------------------------------------------------------(done)
 int Hashmap :: size() const
 {
     return mapSize;

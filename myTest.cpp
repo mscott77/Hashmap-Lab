@@ -35,7 +35,21 @@ int main()
     cout << endl << mymap.toString() << endl;
     cout << "current number of items in map is: " << mymap.size() << endl << endl;
 
+    cout << "------------------------TEST 4 - test the get function for existing and non-existing keys------------------------ \n \n";
 
+    mymap.clear();
+    mymap.insert("waffle",7);
+    mymap.insert("donkey",60);
 
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    int donkeyVal = mymap.get("donkey");
+    cout << "\nthe value of donkey is: " << donkeyVal << endl << endl;
+
+    /*the following line will give you an error and end the program*/
+    //mymap.get("DonCarlos");
+
+    cout << "------------------------TEST 5------------------------ \n \n";
 
 }
