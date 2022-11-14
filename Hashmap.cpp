@@ -145,7 +145,7 @@ int Hashmap :: get(string key) const
     throw invalid_argument("key does not yet exist in the HashMap");
 
 }
-//-----------------------------------------------------------REMOVE-------------------------------------------------------------
+//-----------------------------------------------------------REMOVE-------------------------------------------------------------(done)
 bool Hashmap :: remove(string key)
 {
     int hashIndex = hash(key);
@@ -160,8 +160,18 @@ bool Hashmap :: remove(string key)
         {
             cout << "valid key, the associated Node is being removed\n";
 
+            // special case if it's the ONLY item in the list
+            if ( (current == buckets[hashIndex]) && (current->next == NULL))
+            {
+                cout << "the item to be removed was the ONLY item in the list! \n";
+                buckets[hashIndex] = current->next;
+                delete current;
+                mapSize--;
+                //buckets[hashIndex] == NULL;
+                return true;
+            }
             // special case if it's the first Node in the list (to avoid segFault)
-            if (current == buckets[hashIndex])
+            else if (current == buckets[hashIndex])
             {
                 cout << "the item to be removed was the first in the list! \n";
                 buckets[hashIndex] = current->next; // just point the buckets[hashIndex] to the next item instead
@@ -181,7 +191,6 @@ bool Hashmap :: remove(string key)
                 mapSize--;
                 return true;
             }
-
             // case if it's not the first or last node
             else
             {
@@ -226,7 +235,7 @@ string Hashmap :: toString() const
     cout << "in toString, printing the current HashMap \n";
     stringstream ss;
 
-    for (int i =0 ; i < BUCKETS ; i++)
+    for (int i = 0 ; i < BUCKETS ; i++)
     {
         // print out the bucket number
         ss << "[" << i << "]"; 

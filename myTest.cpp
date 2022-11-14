@@ -85,4 +85,18 @@ int main()
     cout << endl << mymap.toString() << endl;
     cout << "current number of items in map is: " << mymap.size() << endl << endl;
 
+    //test to see if you can remove it if it's the only item in the HashMap
+    mymap.clear();
+    mymap.insert("mason",7);
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    mymap.remove("mason");
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    cout << "------------------------TEST 7 ------------------------ \n \n";
+
+    mymap.clear();
+    
 }
