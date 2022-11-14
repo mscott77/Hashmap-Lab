@@ -95,8 +95,19 @@ int main()
     cout << endl << mymap.toString() << endl;
     cout << "current number of items in map is: " << mymap.size() << endl << endl;
 
-    cout << "------------------------TEST 7 ------------------------ \n \n";
+    cout << "------------------------TEST 7 ToOrderedString()------------------------ \n \n";
 
     mymap.clear();
-    
+    mymap.insert("mason",1);
+    mymap.insert("lloyd",2);
+    mymap.insert("scott",3);
+    mymap.insert("Manolo",23);
+    mymap.insert("DeLaCruz",54);
+    mymap.insert("Sanchez",15);
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    string sortedList = mymap.toSortedString();
+    cout << "\n sorted list: \n \n" << sortedList << endl << endl;
 }

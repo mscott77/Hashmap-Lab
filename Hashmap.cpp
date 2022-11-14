@@ -2,6 +2,8 @@
 #include <sstream>
 #include <iostream>
 #include <queue>
+#include <utility>
+
 
 #include "Hashmap.h"
 
@@ -262,7 +264,35 @@ string Hashmap :: toString() const
 //--------------------------------------------------------TO SORTED STRING-----------------------------------------------------
 string Hashmap :: toSortedString() const
 {
-    return "yolo";
+    stringstream ss;
+    // create a pair for the key and value since we can't put a Node into a queue
+    priority_queue< pair<int,string> > mypq; // default ordering for a pair is by the first element, so lets put the value in the first element to make things easy
+
+    // iterate through the hashmap and add each Node's key and value to a pair, then put that pair into a priority queue
+    for (int i = 0 ; i < BUCKETS ; i++)
+    {
+        Node* current = buckets[i];
+        while(current != NULL) // loop through all Nodes in the bucket (this will be skipped if the first item is NULL)
+        {
+            // do stuff to the current link 
+            pair <int,string> tempPair (current->value, current->key); // make a temporary pair and initialize it!
+            mypq.push(tempPair); // add the temporary pair to the ordered queue of pairs
+            
+            // then increment the 'counter'
+            current = current->next;
+        }
+    }
+
+    // iterate through the priority queue, adding each pair to the stringstream (with formatting) and then popping it off the queue
+    while(!mypq.empty())
+    {
+        cout << mypq.top().second << " => " << mypq.top().first << endl;
+        ss << mypq.top().second << " => " << mypq.top().first << endl;
+        mypq.pop();
+    }
+
+
+    return ss.str();
 }
 //--------------------------------------------------------SIZE----------------------------------------------------------------(done)
 int Hashmap :: size() const
