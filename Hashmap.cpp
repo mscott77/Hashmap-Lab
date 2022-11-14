@@ -36,7 +36,7 @@ Hashmap :: ~Hashmap()
         }
     }
 }
-//------------------------------------------------------------HASH FUNCTION--------------------------------(done)
+//------------------------------------------------------------HASH FUNCTION----------------------------------------------------(done)
 unsigned int Hashmap :: hash(string key) const
 {
     int count = 0;
@@ -102,12 +102,26 @@ void Hashmap :: insert(string key, int value)
 
 
 }
-//------------------------------------------------------------------------------------------------------------------------
+//------------------------------------------------------------CONTAINS------------------------------------------------------------(done)
 bool Hashmap :: contains(string key) const
 {
+    for (int i = 0 ; i < BUCKETS ; i++)
+    {
+        Node* current = buckets[i];
+        while(current != NULL) // loop through all Nodes in the bucket (this will be skipped if the first item is NULL)
+        {
+            // do stuff to the current link 
+            if ((current->key) == key) // if there is an item with matching key, just reassign that keys value to the new value
+            {
+                return true;
+            }
+            // then increment the 'counter'
+            current = current->next;
+        }
+    }
     return false;
 }
-//------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------GET-------------------------------------------------------------(done)
 int Hashmap :: get(string key) const
 {
     int hashIndex = hash(key);
@@ -131,9 +145,59 @@ int Hashmap :: get(string key) const
     throw invalid_argument("key does not yet exist in the HashMap");
 
 }
-//------------------------------------------------------------------------------------------------------------------------
+//-----------------------------------------------------------REMOVE-------------------------------------------------------------
 bool Hashmap :: remove(string key)
 {
+    int hashIndex = hash(key);
+
+    cout << "In remove(), \nthe key " << key <<  " should be in bucket [" << hashIndex << "] \n searching through the bucket for your item \n";
+
+    Node* current = buckets[hashIndex];
+    while(current != NULL) // loop through all Nodes in the bucket (this will be skipped if the first item is NULL)
+    {
+        // do stuff to the current link 
+        if ((current->key) == key) // if there is an item with matching key, just reassign that keys value to the new value
+        {
+            cout << "valid key, the associated Node is being removed\n";
+
+            // special case if it's the first Node in the list (to avoid segFault)
+            if (current == buckets[hashIndex])
+            {
+                cout << "the item to be removed was the first in the list! \n";
+                buckets[hashIndex] = current->next; // just point the buckets[hashIndex] to the next item instead
+                current->next->prev = NULL;
+                delete current;
+                current = NULL;
+                mapSize--;
+                return true;
+            }
+            // special case if it's the last Node in the list
+            else if(current->next == NULL)
+            {
+                cout << "the item to be removed was the last in the list! \n ";
+                current->prev->next = NULL;
+                delete current;
+                current = NULL;
+                mapSize--;
+                return true;
+            }
+
+            // case if it's not the first or last node
+            else
+            {
+                cout << "the item to be removed was not the first or last item but somewhere in the middle \n";
+                current->prev->next = current->next; // point to previous Node's 'next' pointer to the next Node
+                current->next->prev = current->prev; // point the next Node's 'prev' pointer to the previous Node
+                delete current;
+                current = NULL;
+                mapSize--;
+                return true;
+            }
+        }
+        // then increment the 'counter'
+        current = current->next;
+    }
+    cout << "there is no item associated with the given key, no Nodes were deleted\n";
     return false;
 }
 //-------------------------------------------------------CLEAR-----------------------------------------------------------------(done)
@@ -186,12 +250,17 @@ string Hashmap :: toString() const
     
     return ss.str();
 }
-//------------------------------------------------------------------------------------------------------------------------(done)
+//--------------------------------------------------------TO SORTED STRING-----------------------------------------------------
+string Hashmap :: toSortedString() const
+{
+    return "yolo";
+}
+//--------------------------------------------------------SIZE----------------------------------------------------------------(done)
 int Hashmap :: size() const
 {
     return mapSize;
 }
-//------------------------------------------------------------------------------------------------------------------------
+//--------------------------------------------------------OPERATOR []----------------------------------------------------------------
 int& Hashmap :: operator [](string key)
 {
 }

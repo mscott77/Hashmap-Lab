@@ -50,6 +50,39 @@ int main()
     /*the following line will give you an error and end the program*/
     //mymap.get("DonCarlos");
 
-    cout << "------------------------TEST 5------------------------ \n \n";
+    cout << "------------------------TEST 5 test the contains() function------------------------ \n \n";
+
+    cout << "is \'waffle\' in the HashMap? " << mymap.contains("waffle") << endl;
+    cout << "is \'le poissont\' in the HashMap? " << mymap.contains("le poissont") << endl << endl;
+
+
+    cout << "------------------------TEST 6 test the remove function------------------------ \n \n";
+
+    mymap.clear();
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    mymap.insert("asdf",1);
+    mymap.insert("fdsa",2);
+    mymap.insert("afsd",3);
+    mymap.insert("fads",4);
+    mymap.insert("fasd",5);
+    mymap.insert("afds",6);
+    
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    mymap.remove("asdf");
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    mymap.remove("afds");
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    mymap.remove("fads");
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
 
 }
