@@ -116,9 +116,12 @@ int main()
     cout << "------------------------TEST 8 ToOrderedString() test the duplicate value ordering feature------------------------ \n \n";
 
     mymap.clear();
-    mymap.insert("c",1);
-    mymap.insert("b",1);
+    mymap.insert("f",1);
     mymap.insert("a",1);
+    mymap.insert("c",1);
+    mymap.insert("d",1);
+    mymap.insert("e",1);
+    mymap.insert("b",1);
     mymap.insert("lloyd",2);
     mymap.insert("scott",3);
 

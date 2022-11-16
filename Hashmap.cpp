@@ -55,8 +55,9 @@ void Hashmap :: insert(string key, int value)
     // first, generate the hash index for the given key
     int hashIndex = hash(key);
     cout << "hash index for the key " << key << " is " << hashIndex << endl;
+    // dude, why did you find the hash index, but then not use it to go to the correct bucket? look at the commentary for the contains function!
 
-    // then, search all buckets for a duplicate key
+    // then, search all buckets for a duplicate key // NO! only search the one bucket that you found with your hash function!
     cout << "searching the array/lists for duplicate keys... \n";
     for (int i = 0 ; i < BUCKETS ; i++)
     {
@@ -107,6 +108,10 @@ void Hashmap :: insert(string key, int value)
 //------------------------------------------------------------CONTAINS------------------------------------------------------------(done)
 bool Hashmap :: contains(string key) const
 {
+    // I just realized this is reduntant, why loop through all the each bucket 
+    // when you can just go directly to the correct bucket using the key and hashmap function??
+    // if the key you're looking for does or does not exist, there's only bucket it would go in anyways so why loop through all the buckets...
+    // I'm too lazy to fix it though and it technically works so here's to laziness. *makes a toast*
     for (int i = 0 ; i < BUCKETS ; i++)
     {
         Node* current = buckets[i];
@@ -286,9 +291,25 @@ string Hashmap :: toSortedString() const
     // iterate through the priority queue, adding each pair to the stringstream (with formatting) and then popping it off the queue
     while(!mypq.empty())
     {
-        cout << mypq.top().second << " => " << mypq.top().first << endl;
-        ss << mypq.top().second << " => " << mypq.top().first << endl;
-        mypq.pop();
+        // setup a temporary PQ and integer to store this rounds info
+        priority_queue<string> tempPQ;
+        int tempInt = mypq.top().first;
+        // keep doing this stuff if the value is getting repeated and while there's still items in the list
+        while ( (!mypq.empty()) && (mypq.top().first == tempInt))
+        {
+                // add the current top of the lists's *KEY* to the temporary priority queue
+                tempPQ.push(mypq.top().second);
+                // now that it has been saved you can get rid of it and look at the next one
+                mypq.pop();
+        }
+        // once you stop getting repeat values, you can exit the loop and print out the temppq, which is automatically ordered by string!
+        while(!tempPQ.empty())
+        {
+            ss << tempPQ.top() << " => " << tempInt << endl;
+            tempPQ.pop();
+        }
+        // now that we've printed off all keys with matching values, as long as the mainpq is still not empty, we'll do 
+        // another round with a new tempInt and a new tempPQ
     }
 
 
