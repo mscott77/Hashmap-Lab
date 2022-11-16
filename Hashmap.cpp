@@ -302,4 +302,27 @@ int Hashmap :: size() const
 //--------------------------------------------------------OPERATOR []----------------------------------------------------------------
 int& Hashmap :: operator [](string key)
 {
+    //first, find the Node (if it exists)
+    int hashIndex = hash(key);
+
+    cout << "attempting to access the value of " << key << " in bucket [" << hashIndex << "] \n searching through the bucket for your item \n";
+
+    Node* current = buckets[hashIndex];
+    while(current != NULL) // loop through all Nodes in the bucket (this will be skipped if the first item is NULL)
+    {
+        // do stuff to the current link 
+        if ((current->key) == key) // if there is an item with matching key, just reassign that keys value to the new value
+        {
+            cout << "your key was found! \n";
+            return current->value;
+        }
+        // then increment the 'counter'
+        current = current->next;
+    }
+
+    cout << "your key was not found, creating a new node with the given key for you to access \n";
+
+    insert(key,0);
+    // no need to increment mapSize, because the insert function already does that for us!
+    return this->operator[](key);
 }

@@ -104,10 +104,60 @@ int main()
     mymap.insert("Manolo",23);
     mymap.insert("DeLaCruz",54);
     mymap.insert("Sanchez",15);
+    mymap.insert("nosam",20);
+    mymap.insert("samno",13);
 
     cout << endl << mymap.toString() << endl;
     cout << "current number of items in map is: " << mymap.size() << endl << endl;
 
     string sortedList = mymap.toSortedString();
     cout << "\n sorted list: \n \n" << sortedList << endl << endl;
+
+    cout << "------------------------TEST 8 ToOrderedString() test the duplicate value ordering feature------------------------ \n \n";
+
+    mymap.clear();
+    mymap.insert("c",1);
+    mymap.insert("b",1);
+    mymap.insert("a",1);
+    mymap.insert("lloyd",2);
+    mymap.insert("scott",3);
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    sortedList = mymap.toSortedString();
+    cout << "\n sorted list: \n \n" << sortedList << endl << endl;
+
+    cout << "------------------------TEST 9 operator []------------------------ \n \n";
+
+    mymap.clear();
+    mymap.insert("LeBaguette",1);
+    mymap.insert("LeCroissant",1);
+    mymap.insert("LePoissont",1);
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    int baguetteVal = mymap["LeBaguette"];
+    cout << "the current value of LeBaguette is: " << baguetteVal << endl;
+    cout << "but now we will change it to 666 \n ";
+    mymap["LeBaguette"] = 666;
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    cout << endl << "now we will access an element that doesn't exist, which hopefully will just create a new element with default value of zero\n";
+    mymap["SacLeBleu"];
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+    cout << endl << "now we will try to access and element that doesn't exist and then set it's value to something other than zero \n";
+    mymap["parmiggiano"] = 100;
+
+    cout << endl << mymap.toString() << endl;
+    cout << "current number of items in map is: " << mymap.size() << endl << endl;
+
+
+
 }
