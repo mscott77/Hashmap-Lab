@@ -3,6 +3,7 @@
 #include <iostream>
 #include <queue>
 #include <utility>
+#include <stack>
 
 
 #include "Hashmap.h"
@@ -303,10 +304,19 @@ string Hashmap :: toSortedString() const
                 mypq.pop();
         }
         // once you stop getting repeat values, you can exit the loop and print out the temppq, which is automatically ordered by string!
+        // oh wait but we're not ready yet, priority queue sorts the highest value on top, but we want alphabetical order, 
+        // or the "lowest" values first.. so we need to put tempPQ into a stack first, and then pop the stack off the top
+        // the top of the stack will be the bottom of the PQ, or the lowest value item so it will work just how we want it!
+        stack<string> tempStack;
         while(!tempPQ.empty())
         {
-            ss << tempPQ.top() << " => " << tempInt << endl;
+            tempStack.push(tempPQ.top());
             tempPQ.pop();
+        }
+        while(!tempStack.empty())
+        {
+            ss << tempStack.top() << " => " << tempInt << endl;
+            tempStack.pop();
         }
         // now that we've printed off all keys with matching values, as long as the mainpq is still not empty, we'll do 
         // another round with a new tempInt and a new tempPQ
